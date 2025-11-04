@@ -21,7 +21,7 @@ class ReSA(BaseMethod):
 
         self.temp = args.temperature
 
-    def forward(self, samples):
+    def forward(self, samples, it, epoch):
 
         samples = [x.cuda(non_blocking=True) for x in samples]
 

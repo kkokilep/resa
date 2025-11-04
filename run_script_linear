@@ -1,0 +1,11 @@
+#!/bin/bash
+
+```
+torchrun --nproc_per_node=1 eval_linear.py \
+--epochs 100 \
+--data_path /path/to/imagenet \
+--dump_path /path/to/saving_dir \
+--pretrained /path/to/checkpoint.pth \
+```
+
+#If the pretraining batch size is 256, you should set an extra `--lr_classifier 10`

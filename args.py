@@ -144,6 +144,16 @@ def get_args():
                     help="""Should we store the features on GPU in knn evaluation? 
                             We recommend setting this to False if you encounter OOM""")
     
+    parser.add_argument("--step_epoch", type=int, default=5,
+                    help="list of step epochs")
+    
+    parser.add_argument("--alpha", default=0.1, type=float,
+                    help="alpha parameter at start of training loss")
+
+    parser.add_argument('--gamma', default=1e-4, type=float, 
+                    help='initial (base) learning rate for train')
+    parser.add_argument("--loss_type", type=str, default="Resa")
+    parser.add_argument("--dataset", type=str, default="ImageNet")
     args = parser.parse_args()
 
     default_params = get_default_params(args.arch)

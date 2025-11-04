@@ -140,7 +140,7 @@ def main():
             }
             torch.save(
                 save_dict,
-                os.path.join(args.dump_path, "checkpoint.pth.tar"),
+                os.path.join(args.dump_path, f"checkpoint_{args.dataset}_{args.loss_type}.pth.tar"),
             )
         
 def train(loader, model, scaler, optimizer, epoch, args):
@@ -161,7 +161,7 @@ def train(loader, model, scaler, optimizer, epoch, args):
         # ============ backward and optim step ... ============
         optimizer.zero_grad()
         with torch.cuda.amp.autocast():
-            loss = model(samples)
+            loss = model(samples,it,epoch)
         scaler.scale(loss).backward()
         scaler.step(optimizer)
         scaler.update()
