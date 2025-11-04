@@ -164,7 +164,7 @@ def train(loader, model, scaler, optimizer, epoch, args):
             if args.loss_type == "Resa":
                 loss = model(samples,it,epoch)
             else:
-                loss, alpha = model(samples,it,epoch)
+                loss = model(samples,it,epoch,logging)
         scaler.scale(loss).backward()
         scaler.step(optimizer)
         scaler.update()
@@ -174,25 +174,8 @@ def train(loader, model, scaler, optimizer, epoch, args):
         batch_time.update(time.time() - end)
         end = time.time()
         if args.local_rank == 0 and it % 50 == 0:
-            if args.loss_type == "AdaDim":
-                logging.info(
-                "Epoch: [{0}][{1}]\t"
-                "Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t"
-                "Data {data_time.val:.3f} ({data_time.avg:.3f})\t"
-                "Loss {loss.val:.4f} ({loss.avg:.4f})\t"
-                "Alpha {alpha:.4f}\t"
-                "Lr: {lr:.4f}".format(
-                    epoch,
-                    it,
-                    batch_time=batch_time,
-                    data_time=data_time,
-                    loss=losses,
-                    alpha=alpha,
-                    lr=optimizer.param_groups[0]["lr"],
-                )
-            )
-            else:
-                logging.info(
+            
+            logging.info(
                     "Epoch: [{0}][{1}]\t"
                     "Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t"
                     "Data {data_time.val:.3f} ({data_time.avg:.3f})\t"

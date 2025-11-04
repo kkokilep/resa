@@ -153,7 +153,7 @@ class AdaDim(BaseMethod):
             p_k = svd[i] / svd_norm + eppsilon
             rankme_score = rankme_score + p_k * torch.log(p_k)
         return torch.exp(-1 * rankme_score)
-    def forward(self, samples, it, epoch):
+    def forward(self, samples, it, epoch,logging):
 
         samples = [x.cuda(non_blocking=True) for x in samples]
 
@@ -177,7 +177,7 @@ class AdaDim(BaseMethod):
                 self.rank_list = []
                 self.alpha = (mean_rank/(self.args.batch_size*2)).detach().cpu().numpy()
                 self.alpha = torch.tensor(self.alpha).float()
-                wandb.log({"alpha": self.alpha})
+                logging.info(f"Alpha {self.alpha:.4f}\t")
                 self.rank = mean_rank
         else:
             self.alpha = self.alpha
@@ -227,7 +227,7 @@ class AdaDim(BaseMethod):
         AdaDim_loss = (1-beta) * ssl_loss - beta * matrix_loss
         
 
-        return AdaDim_loss, self.alpha
+        return AdaDim_loss
 
 
 @torch.no_grad()
