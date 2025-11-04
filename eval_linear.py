@@ -148,13 +148,14 @@ def main():
 
     # optionally resume from a checkpoint
     to_restore = {"epoch": 0}
-    restart_from_checkpoint(
-        os.path.join(args.dump_path, "checkpoint.pth.tar"),
-        run_variables=to_restore,
-        state_dict=model,
-        optimizer=optimizer,
-        scheduler=scheduler,
-    )
+    if 'checkpoint' in args.dump_path:
+        restart_from_checkpoint(
+            os.path.join(args.dump_path),
+            run_variables=to_restore,
+            state_dict=model,
+            optimizer=optimizer,
+            scheduler=scheduler,
+        )
     start_epoch = to_restore["epoch"]
 
     cudnn.benchmark = True
