@@ -140,7 +140,7 @@ def main():
             }
             torch.save(
                 save_dict,
-                os.path.join(args.dump_path, f"checkpoint_{args.dataset}_{args.loss_type}.pth.tar"),
+                os.path.join(args.dump_path, f"checkpoint_{args.dataset}_{args.loss_type}_{args.gamma}_{args.lr}_{args.step_epoch}.pth.tar"),
             )
         
 def train(loader, model, scaler, optimizer, epoch, args):
@@ -161,7 +161,10 @@ def train(loader, model, scaler, optimizer, epoch, args):
         # ============ backward and optim step ... ============
         optimizer.zero_grad()
         with torch.cuda.amp.autocast():
-            loss = model(samples,it,epoch)
+            if args.loss_type == "Resa":
+                loss = model(samples,it,epoch)
+            else:
+                loss, alpha = model(samples,it,epoch)
         scaler.scale(loss).backward()
         scaler.step(optimizer)
         scaler.update()
@@ -171,20 +174,38 @@ def train(loader, model, scaler, optimizer, epoch, args):
         batch_time.update(time.time() - end)
         end = time.time()
         if args.local_rank == 0 and it % 50 == 0:
-            logging.info(
+            if args.loss_type == "AdaDim":
+                logging.info(
                 "Epoch: [{0}][{1}]\t"
                 "Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t"
                 "Data {data_time.val:.3f} ({data_time.avg:.3f})\t"
                 "Loss {loss.val:.4f} ({loss.avg:.4f})\t"
+                "Alpha {alpha:.4f}\t"
                 "Lr: {lr:.4f}".format(
                     epoch,
                     it,
                     batch_time=batch_time,
                     data_time=data_time,
                     loss=losses,
+                    alpha=alpha,
                     lr=optimizer.param_groups[0]["lr"],
                 )
             )
+            else:
+                logging.info(
+                    "Epoch: [{0}][{1}]\t"
+                    "Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t"
+                    "Data {data_time.val:.3f} ({data_time.avg:.3f})\t"
+                    "Loss {loss.val:.4f} ({loss.avg:.4f})\t"
+                    "Lr: {lr:.4f}".format(
+                        epoch,
+                        it,
+                        batch_time=batch_time,
+                        data_time=data_time,
+                        loss=losses,
+                        lr=optimizer.param_groups[0]["lr"],
+                    )
+                )
     return losses.avg
 
 def adjust_parameters(model, optimizer, args, iters):

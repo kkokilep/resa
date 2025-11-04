@@ -227,7 +227,7 @@ class AdaDim(BaseMethod):
         AdaDim_loss = (1-beta) * ssl_loss - beta * matrix_loss
         
 
-        return AdaDim_loss
+        return AdaDim_loss, self.alpha
 
 
 @torch.no_grad()

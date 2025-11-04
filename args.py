@@ -20,9 +20,7 @@ def get_args():
     #####################
     parser.add_argument("--data_path", type=str, default="/path/to/imagenet",
                     help="path to dataset repository")
-    parser.add_argument("--data_path", type=str, default="/path/to/imagenet",
-                    help="path to dataset repository")
-
+    
     parser.add_argument("--crops_nmb", type=int, default=[1], nargs="+",
                     help="list of number of crops (example: [1, 10])")
                     
