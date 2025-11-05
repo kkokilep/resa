@@ -112,7 +112,7 @@ def main():
     if 'checkpoint' in args.dump_path:
         
         restart_from_checkpoint(
-            os.path.join(args.dump_path, "checkpoint.pth.tar"),
+            os.path.join(args.dump_path),
             run_variables=to_restore,
             state_dict=model,
             optimizer=optimizer,
