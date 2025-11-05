@@ -166,7 +166,7 @@ def train(loader, model, scaler, optimizer, epoch, args):
             if args.loss_type == "Resa":
                 loss = model(samples,it,epoch)
             else:
-                loss = model(samples,it,epoch,logging)
+                loss = model(samples,it,epoch)
         scaler.scale(loss).backward()
         scaler.step(optimizer)
         scaler.update()
