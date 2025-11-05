@@ -163,10 +163,8 @@ def train(loader, model, scaler, optimizer, epoch, args):
         # ============ backward and optim step ... ============
         optimizer.zero_grad()
         with torch.cuda.amp.autocast():
-            if args.loss_type == "Resa":
-                loss = model(samples,it,epoch)
-            else:
-                loss = model(samples,it,epoch)
+            
+            loss = model(samples,it,epoch)
         scaler.scale(loss).backward()
         scaler.step(optimizer)
         scaler.update()
