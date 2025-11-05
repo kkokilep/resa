@@ -134,7 +134,7 @@ def main():
     # copy model to GPU
     torch.cuda.set_device(device)
     model.cuda(device)
-    model = nn.parallel.DistributedDataParallel(model, device_ids=[device])
+    model = nn.parallel.DistributedDataParallel(model, device_ids=[device], find_unused_parameters=True)
 
     if args.weights == 'freeze':
         parameters = list(filter(lambda p: p.requires_grad, model.parameters()))

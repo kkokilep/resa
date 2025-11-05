@@ -81,7 +81,7 @@ def main():
     # copy model to GPU
     torch.cuda.set_device(device)
     model.cuda(device)
-    model = nn.parallel.DistributedDataParallel(model, device_ids=[device])
+    model = nn.parallel.DistributedDataParallel(model, device_ids=[device], find_unused_parameters=True)
 
     logging.info(model)
     logging.info("Building model done.")
