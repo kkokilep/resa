@@ -170,8 +170,8 @@ class AdaDim(BaseMethod):
         
         if(epoch % self.args.step_epoch == 0 and epoch != 0):
             if (it >= 0 and it <= 10):
-                z = z.float()
-                z_m = z_m.float()
+                z[0] = z[0].float()
+                z_m[1] = z_m[1].float()
                 self.rank_list.append(self.get_rank(z[0],z_m[1]))
             elif(it == 11):
                 mean_rank = torch.mean(torch.stack(self.rank_list))
