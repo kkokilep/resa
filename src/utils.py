@@ -36,7 +36,7 @@ def load_pretrained_encoder(encoder, pretrained_path):
     if pretrained_path:
         if os.path.isfile(pretrained_path):
             logging.info(f"loading checkpoint '{pretrained_path}'")
-            checkpoint = torch.load(pretrained_path, map_location="cpu")
+            checkpoint = torch.load(pretrained_path, map_location="cpu",weights_only=False)
 
             # rename ins pre-trained keys
             if 'state_dict' in checkpoint:
