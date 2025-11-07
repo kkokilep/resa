@@ -94,9 +94,7 @@ def restart_from_checkpoint(ckp_paths, run_variables=None, **kwargs):
     logging.info(f"Found checkpoint at {ckp_path}")
 
     # open checkpoint file
-    checkpoint = torch.load(
-        ckp_path, map_location="cuda:" + str(torch.distributed.get_rank() % torch.cuda.device_count()),weights_only=False)
-    )
+    checkpoint = torch.load(ckp_path, map_location="cuda:" + str(torch.distributed.get_rank() % torch.cuda.device_count()),weights_only=False)
 
     # key is what to look for in the checkpoint file
     # value is the object to load
