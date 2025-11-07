@@ -47,7 +47,7 @@ def main():
         # Create the folder if it doesn't exist
         os.makedirs(args.dump_path)
     
-    setup_logging(os.path.join(args.dump_path,'out.log'), logging.INFO)
+    setup_logging(os.path.join('./save_dir/','out.log'), logging.INFO)
 
     if args.local_rank != 0:
         def log_pass(*args): pass
