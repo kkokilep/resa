@@ -216,8 +216,8 @@ class AdaDim(BaseMethod):
                 total_matrix_loss += emb_sim
                 total_matrix_terms += 1
         
-        for q in range(len(h)):
-            for v in range(len(z)):
+        for q in range(len(h_m)):
+            for v in range(len(z_m)):
                 if v == q:
                     continue
                 emb_sim = self.mutual_info_loss(h_m[q],z_m[v])
