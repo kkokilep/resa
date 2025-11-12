@@ -1,0 +1,14 @@
+#!/bin/bash
+#SBATCH --time=16:00:00
+#SBATCH --gres=gpu:h100:1
+#SBATCH --nodes=1
+#SBATCH --cpus-per-task=32
+#SBATCH --ntasks 1
+#SBATCH --ntasks-per-node=1
+#SBATCH --signal=INT@5
+
+
+srun --export=ALL torchrun --nproc_per_node=1 main.py --arch 'resnet18' --epochs 400 --batch_size 128 --workers 32 --dataset 'ImageNet100' --data_path '/home/hice1/skim3513/AIFirst_F24_data/darai/ImageNet100/' --dump_path './save_dir/' --loss_type 'AdaDim' --wd .00025 --gamma 1e-2 --no_pred
+
+
+srun --export=ALL  torchrun --nproc_per_node=1 eval_linear.py --dataset 'ImageNet100' --arch 'resnet18' --lr_classifier 5 --data_path '/home/hice1/skim3513/AIFirst_F24_data/darai/ImageNet100/' --dump_path './save_dir/' --pretrained './save_dir/checkpoint_ImageNet100_AdaDim_0.01_0.25_5.pth.tar'
