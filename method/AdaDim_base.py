@@ -14,13 +14,13 @@ class AdaDim_Base(BaseMethod):
     def __init__(self, args):
         super().__init__(args)
 
-        self.momentum_encoder = copy.deepcopy(self.encoder)
-        self.momentum_projector = copy.deepcopy(self.projector)
-        
+        #self.momentum_encoder = copy.deepcopy(self.encoder)
+        #self.momentum_projector = copy.deepcopy(self.projector)
+        '''
         for param in chain(self.momentum_encoder.parameters(), 
                            self.momentum_projector.parameters()):
             param.requires_grad = False
-
+        '''
         self.temp = args.temperature
         self.alpha = args.alpha
         self.gamma = args.gamma
