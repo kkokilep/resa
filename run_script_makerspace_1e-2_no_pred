@@ -8,7 +8,7 @@
 #SBATCH --signal=INT@5
 
 
-srun --export=ALL torchrun --nproc_per_node=1 main.py --epochs 100 --workers 32 --data_path '/storage/ice1/shared/d-pace_community/makerspace-datasets/IMAGE/Imagenet2012/' --dataset 'ImageNet_No_Pred' --dump_path './save_dir/' --loss_type 'AdaDim' --gamma 1e-2 --no_pred --alpha .5673
+srun --export=ALL torchrun --nproc_per_node=1 main.py --epochs 100 --workers 32 --data_path '/storage/ice1/shared/d-pace_community/makerspace-datasets/IMAGE/Imagenet2012/' --dataset 'ImageNet_No_Pred' --dump_path './save_dir/checkpoint_ImageNet_No_Pred_AdaDim_0.01_0.5_5.pth.tar' --loss_type 'AdaDim' --gamma 1e-2 --no_pred --alpha .5657
 
 #srun --export=ALL  torchrun --nproc_per_node=1 --master_port 11378 eval_linear.py --epochs 100 --lr_classifier 1 --workers 32 --dataset 'ImageNet_Predictor' --data_path '/storage/ice1/shared/d-pace_community/makerspace-datasets/IMAGE/Imagenet2012/' --dump_path './save_dir/' --pretrained './save_dir/checkpoint_ImageNet_No_Pred_AdaDim_0.01_0.5_5.pth.tar'
 
