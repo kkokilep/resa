@@ -26,6 +26,7 @@ from src.utils import (
 )
 
 best_acc1 = 0
+'''
 
 class Oxford102Flowers(Dataset):
     def __init__(self, root: str, split: str = 'train', transform: Optional[Callable] = None, download: bool = True):
@@ -92,7 +93,7 @@ class Oxford102Flowers(Dataset):
             img = self.transform(img)
 
         return img, label
-
+'''
 def random_seed(args):
     if args.seed is not None:
         random.seed(args.seed)
@@ -124,6 +125,8 @@ def main():
     normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
                                      std=[0.229, 0.224, 0.225])
     if args.dataset == 'oxfordflowers102':
+        pass
+        '''
         T_train = transforms.Compose([
             transforms.RandomResizedCrop(224),
             transforms.RandomHorizontalFlip(),
@@ -148,6 +151,7 @@ def main():
                 transform=T_val,
                 download=True,
             )
+            '''
     else:
         train_dataset = datasets.ImageFolder(
             traindir,
