@@ -15,7 +15,7 @@ import torchvision.datasets as datasets
 import src.resnet as resnet
 from torch.optim.lr_scheduler import MultiStepLR, CosineAnnealingLR
 from args import get_args
-
+from torch.utils.data import DataLoader, Dataset
 from src.utils import (
     setup_logging,
     load_pretrained_encoder,
