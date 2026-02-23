@@ -16,8 +16,8 @@ class BaseMethod(nn.Module):
         super().__init__()
         self.encoder, self.out_size = get_encoder(args)
         self.projector = get_projector(self.out_size, args)
-        if args.loss_type != "AdaDim_base":
-            self.predictor = get_predictor(args)
+        #if args.loss_type != "AdaDim_base":
+            #self.predictor = get_predictor(args)
         self.momentum = args.momentum
         self.device = args.device
 
