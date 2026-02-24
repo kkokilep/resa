@@ -26,8 +26,8 @@ class BaseMethod(nn.Module):
         # As it will disrupt the zero-mean, unit-variance distribution
         h = [encoder(x) for x in samples]
         emb = [projector(x) for x in h]
-        if torch.is_grad_enabled() and self.predictor:
-            emb = [self.predictor(x) for x in emb]
+        #if torch.is_grad_enabled() and self.predictor:
+            #emb = [self.predictor(x) for x in emb]
 
         emb = [F.normalize(x) for x in emb]
 
