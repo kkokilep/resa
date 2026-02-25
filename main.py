@@ -44,9 +44,9 @@ def main():
 
     print(f"Rank {args.rank} running on device {args.device}")
 
-    if not os.path.exists(args.dump_path):
+    #if not os.path.exists(args.dump_path):
         # Create the folder if it doesn't exist
-        os.makedirs(args.dump_path)
+        #os.makedirs(args.dump_path)
     
     setup_logging(os.path.join('./save_dir/','out.log'), logging.INFO)
 
