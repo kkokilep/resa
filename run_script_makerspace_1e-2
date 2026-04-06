@@ -8,7 +8,12 @@
 #SBATCH --signal=INT@5
 
 
-srun --export=ALL torchrun --nproc_per_node=1 --master_port 31338 main.py --epochs 200 --workers 32 --data_path '/storage/ice1/shared/d-pace_community/makerspace-datasets/IMAGE/Imagenet2012/' --dataset 'ImageNet_Predictor' --dump_path './save_dir/checkpoint_ImageNet_Predictor_AdaDim_0.0001_0.5_5_0.1_200.pth.tar' --loss_type 'AdaDim' --gamma 1e-4 --temperature 0.1 --alpha .5999
+srun --export=ALL torchrun --nproc_per_node=1 --master_port 31338 main.py --epochs 200 --workers 32 --data_path '/storage/ice1/shared/d-pace_community/makerspace-datasets/IMAGE/Imagenet2012/' --dataset 'ImageNet_Predictor' --dump_path './save_dir/checkpoint_ImageNet_Predictor_AdaDim_0.0001_0.5_5_0.1_200.pth.tar' --loss_type 'AdaDim' --gamma 1e-4 --temperature 0.1 --alpha .5938
+
+
+
+ 
+#srun --export=ALL torchrun --nproc_per_node=1 --master_port 31338 main.py --epochs 200 --workers 32 --data_path '/storage/ice1/shared/d-pace_community/makerspace-datasets/IMAGE/Imagenet2012/' --dataset 'ImageNet_Predictor' --dump_path './save_dir/checkpoint_ImageNet_Predictor_AdaDim_0.0001_0.5_5_0.1_200.pth.tar' --loss_type 'AdaDim' --gamma 1e-4 --temperature 0.1 --alpha .5999
 
 #srun --export=ALL  torchrun --nproc_per_node=1 --master_port 21378 eval_linear.py --epochs 100 --lr_classifier 1 --workers 32 --dataset 'ImageNet_Predictor' --data_path '/storage/ice1/shared/d-pace_community/makerspace-datasets/IMAGE/Imagenet2012/' --dump_path './save_dir/' --pretrained './save_dir/checkpoint_ImageNet_Predictor_AdaDim_0.01_0.5_5.pth.tar'
 
