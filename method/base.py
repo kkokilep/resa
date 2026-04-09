@@ -16,8 +16,8 @@ class BaseMethod(nn.Module):
         super().__init__()
         self.encoder, self.out_size = get_encoder(args)
         self.projector = get_projector(self.out_size, args)
-        #if args.loss_type != "AdaDim_base":
-            #self.predictor = get_predictor(args)
+        if args.loss_type != "AdaDim_base":
+            self.predictor = get_predictor(args)
         self.momentum = args.momentum
         self.device = args.device
 
@@ -26,8 +26,8 @@ class BaseMethod(nn.Module):
         # As it will disrupt the zero-mean, unit-variance distribution
         h = [encoder(x) for x in samples]
         emb = [projector(x) for x in h]
-        #if torch.is_grad_enabled() and self.predictor:
-            #emb = [self.predictor(x) for x in emb]
+        if torch.is_grad_enabled() and self.predictor:
+            emb = [self.predictor(x) for x in emb]
 
         emb = [F.normalize(x) for x in emb]
 
