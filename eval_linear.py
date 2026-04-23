@@ -277,7 +277,7 @@ def main():
             }
             torch.save(
                 save_dict,
-                os.path.join(args.dump_path, f"checkpoint_linear_{args.lr_classifier}_{args.dataset}.pth.tar"),
+                os.path.join(args.dump_path, f"checkpoint_linear_{args.lr_classifier}_{args.dataset}_{args.epochs}.pth.tar"),
             )
             
             acc1, acc5 = validate(val_loader, model, criterion, args)
@@ -288,8 +288,8 @@ def main():
 
             if is_best:
                 shutil.copyfile(
-                    os.path.join(args.dump_path, f"checkpoint_linear_{args.lr_classifier}_{args.dataset}.pth.tar"),
-                    os.path.join(args.dump_path, f"best_linear_{args.lr_classifier}_{args.dataset}.pth.tar"),
+                    os.path.join(args.dump_path, f"checkpoint_linear_{args.lr_classifier}_{args.dataset}_{args.epochs}.pth.tar"),
+                    os.path.join(args.dump_path, f"best_linear_{args.lr_classifier}_{args.dataset}_{args.epochs}.pth.tar"),
                 )
 
 class model_forward(nn.Module):
